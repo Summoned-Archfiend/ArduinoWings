@@ -9,6 +9,70 @@ Convention: all switches use the Nano's internal pull-ups (`INPUT_PULLUP`), so
 
 ---
 
+## At a glance — whole circuit
+
+```
+              USB (bench power)
+                    │
+          ┌─────────┴──────────┐
+          │   Arduino Nano R4  │
+ Button ─►│D2              D5 ~│─► RPWM ┐
+ Open  ──►│D3              D6 ~│─► LPWM │
+ Closed─►│D4              D7  │─► R_EN  ├─► BTS7960 driver
+          │                D8  │─► L_EN │
+          │                5V  │─► VCC  ┘
+          │               VIN  │◄─ 12V+   ← FINAL BUILD ONLY (leave OFF on USB)
+          │               GND  │──┐
+          └────────────────────┘  │
+                                   ▼
+                    ┌──── COMMON GROUND NODE ────┐
+   12V (–) ────────►│   B-  ◄───────────────────│  (heavy wires)
+                    │   BTS7960 GND ◄───────────│
+   button/limit ──►│   (their other legs)       │
+   other legs       └────────────────────────────┘
+
+   12V (+) ─[fuse ~5A]─[main switch]─┬─► BTS7960 B+
+                                     └─► Arduino VIN   (final build only)
+
+   BTS7960  M+ ─┬─ Left motor ─┬─ M-
+                └─ Right motor ┘    (reverse ONE motor's leads — see below)
+```
+
+**Two power modes — never both at once:**
+- **Bench test now:** Arduino on **USB**, 12 V to **B+/B- only**, VIN **disconnected**.
+- **Final build:** 12 V (via fuse + switch) splits to **B+ and VIN**, no USB.
+
+In *both* modes the battery **–** must still reach the common ground node (that's
+what the Arduino's GND and the signal references hang off).
+
+### Master wire list (every connection)
+
+| From | To | Wire | When |
+|------|----|------|------|
+| Nano **D2** | Button leg 1 | signal | always |
+| Button leg 2 | Ground node | signal | always |
+| Nano **D3** | Open limits C/NO (×2 parallel) | signal | always |
+| Nano **D4** | Closed limits C/NO (×2 parallel) | signal | always |
+| Limit switches **C** | Ground node | signal | always |
+| Nano **D5** | BTS7960 RPWM | signal | always |
+| Nano **D6** | BTS7960 LPWM | signal | always |
+| Nano **D7** | BTS7960 R_EN | signal | always |
+| Nano **D8** | BTS7960 L_EN | signal | always |
+| Nano **5V** | BTS7960 VCC | signal | always |
+| Nano **GND** | Ground node | signal | always |
+| Nano **USB** | PC / power bank | — | bench only |
+| **12 V +** | BTS7960 B+ | heavy | always (via fuse+switch in final) |
+| **12 V +** | Nano VIN | heavy | **final build only** |
+| **12 V –** | Ground node | heavy | always |
+| BTS7960 **B-** | Ground node | heavy | always |
+| BTS7960 **GND** | Ground node | signal | always |
+| BTS7960 **M+** | Both motors, lead A | heavy | always |
+| BTS7960 **M-** | Both motors, lead B | heavy | always |
+
+Detailed per-component breakdown and notes follow below.
+
+---
+
 ## Arduino Nano R4 — pin map
 
 | Nano pin | Connects to | Direction | Notes |
