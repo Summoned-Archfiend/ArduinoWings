@@ -1,0 +1,78 @@
+{
+  // Build/upload/monitor the Nano R4 via arduino-cli (no Arduino extension needed).
+  // Ctrl+Shift+B = Compile. Terminal > Run Task... for the rest.
+  // Tasks act on the sketch folder of the currently open .ino file.
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "FQBN": "arduino:renesas_uno:nanor4",
+      "PORT": "/dev/ttyACM0"
+    }
+  },
+  "tasks": [
+    {
+      "label": "Arduino: Compile",
+      "type": "shell",
+      "command": "arduino-cli compile -b $FQBN --build-path \"${fileDirname}/build\" \"${fileDirname}\"",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      "label": "Arduino: Upload",
+      "type": "shell",
+      "command": "arduino-cli compile -b $FQBN --build-path \"${fileDirname}/build\" \"${fileDirname}\" && arduino-cli upload -b $FQBN -p $PORT \"${fileDirname}\"",
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      "label": "Arduino: Upload & Monitor",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Arduino: Upload", "Arduino: Serial Monitor (115200)"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Arduino: Serial Monitor (115200)",
+      "type": "shell",
+      "command": "arduino-cli monitor -p $PORT -c baudrate=115200",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Arduino: Refresh IntelliSense",
+      "type": "shell",
+      "command": "python3 \"${workspaceFolder}/.vscode/gen-clangd.py\" \"${fileDirname}\" $FQBN",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      "label": "Arduino: Compile (V3)",
+      "type": "shell",
+      "options": { "env": { "FQBN": "arduino:avr:nano" } },
+      "command": "arduino-cli compile -b $FQBN --build-path \"${fileDirname}/build-v3\" \"${fileDirname}\"",
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      // V3 clones with the old bootloader: append :cpu=atmega328old to FQBN.
+      // CH340 clones usually enumerate as /dev/ttyUSB0, not ttyACM0.
+      "label": "Arduino: Upload (V3)",
+      "type": "shell",
+      "options": { "env": { "FQBN": "arduino:avr:nano", "PORT": "/dev/ttyUSB0" } },
+      "command": "arduino-cli compile -b $FQBN --build-path \"${fileDirname}/build-v3\" \"${fileDirname}\" && arduino-cli upload -b $FQBN -p $PORT \"${fileDirname}\"",
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      "label": "Arduino: List Boards",
+      "type": "shell",
+      "command": "arduino-cli board list",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    }
+  ]
+}

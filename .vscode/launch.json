@@ -1,0 +1,37 @@
+{
+  // Hardware step-debugging for the Nano R4 (Renesas RA4M1 / R7FA4M1AB).
+  //
+  // REQUIRES an external SWD debug probe (CMSIS-DAP, J-Link, or ST-Link) wired to
+  // the Nano R4's SWD pads — the board has NO onboard debugger, so this will NOT
+  // work over the plain USB cable alone. Without a probe, use the
+  // "Arduino: Upload & Monitor" task (Serial print debugging) instead.
+  //
+  // Default below assumes a CMSIS-DAP probe. For J-Link/ST-Link, change the first
+  // configFiles entry to interface/jlink.cfg or interface/stlink.cfg.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Nano R4 (external SWD probe)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Arduino: Compile",
+      "executable": "${fileDirname}/build/${fileBasenameNoExtension}.ino.elf",
+      "servertype": "openocd",
+      "serverpath": "/home/lukemccann/.arduino15/packages/arduino/tools/openocd-0.11.0-arduino2/bin/openocd",
+      "gdbPath": "/home/lukemccann/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-gdb",
+      "device": "R7FA4M1AB",
+      "searchDir": [
+        "/home/lukemccann/.arduino15/packages/arduino/tools/openocd-0.11.0-arduino2/share/openocd/scripts",
+        "/home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/debugger"
+      ],
+      "configFiles": [
+        "interface/cmsis-dap.cfg",
+        "/home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/debugger/select_swd.cfg",
+        "/home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/debugger/R7FA4M1AB.cfg"
+      ],
+      "svdFile": "/home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/svd/R7FA4M1AB.svd",
+      "runToEntryPoint": "setup"
+    }
+  ]
+}

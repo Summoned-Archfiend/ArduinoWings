@@ -1,0 +1,19 @@
+/home/lukemccann/Projects/ArduinoWings/Blink/build/core/tinyusb/class/cdc/cdc_device.c.o: \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/class/cdc/cdc_device.c \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/tusb_option.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_compiler.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/variants/NANOR4/tusb_config.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_mcu.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/device/usbd.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_common.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_compiler.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_verify.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_types.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_debug.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_timeout.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/device/usbd_pvt.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/osal/osal.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/osal/osal_none.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/common/tusb_fifo.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/class/cdc/cdc_device.h \
+ /home/lukemccann/.arduino15/packages/arduino/hardware/renesas_uno/1.6.0/cores/arduino/tinyusb/class/cdc/cdc.h

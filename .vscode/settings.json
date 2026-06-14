@@ -1,0 +1,16 @@
+{
+  // clangd ignores the .ino extension by default, so it never analyses sketches
+  // and gives no completions. Tell VSCode to treat .ino as C++ so clangd engages.
+  "files.associations": {
+    "*.ino": "cpp"
+  },
+
+  "clangd.arguments": [
+    // Let clangd interrogate the Arduino cross-compiler named in ./.clangd
+    // (Compiler: ...arm-none-eabi-g++) so standard headers resolve correctly.
+    "--query-driver=/home/lukemccann/.arduino15/packages/**/bin/*",
+    "--background-index",
+    "--header-insertion=never",
+    "--clang-tidy"
+  ]
+}
